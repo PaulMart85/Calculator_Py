@@ -66,6 +66,9 @@ def parce_fraction_answer (number):
     # если число целое, то возвращаем одно число
     if len(ans_str) < 2:
         return f'{number}'
+    # если знаменатель дроби навен 0, то возвращаем ошибку
+    elif int(ans_str[1]) == 0:
+        return 'Error! Division by zero.'
     # если знаменатель дроби навен 1, то возвращаем только числитель как целое число
     elif ans_str[1] == '1':
         return f'{ans_str[0]}'
@@ -82,10 +85,10 @@ def parce_fraction_answer (number):
         ans_str[0] = int(ans_str[0] / fract_nod)
         ans_str[1] = int(ans_str[1] / fract_nod)
         if (ans_str[0] - int_num * ans_str[1]) == 0:
-            return f'{sign}{int_num}'
+            return f'{sign}{int(int_num)}'
         else:
-            return f'{sign}{int_num} {ans_str[0] - int_num * ans_str[1]}/{ans_str[1]}'
+            return f'{sign}{int_num} {int(ans_str[0] - int_num * ans_str[1])}/{int(ans_str[1])}'
     # во всех остальных случаях просто сокращаем дробь (если это возможно) и возвращаем ответ
     else:
         fract_nod = gcd(ans_str[0], ans_str[1])
-        return f'{sign}{ans_str[0] / fract_nod}/{ans_str[1] / fract_nod}'
+        return f'{sign}{int(ans_str[0] / fract_nod)}/{int(ans_str[1] / fract_nod)}'
